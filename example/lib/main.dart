@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> m = ["cool", "college", "cool"];
+  Set<String> m = {"cool", "college"};
   @override
   void initState() {
     super.initState();
@@ -47,49 +47,31 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         padding: const EdgeInsets.all(12.0),
         child: TextFieldTags(
-          //initialTags: ["better", "lovely"],
+          tags: m,
           textSeparators: [" ", ".", ","],
-          tagsStyler: TagsStyler(
-            showHashtag: true,
-            tagMargin: const EdgeInsets.only(right: 4.0),
-            tagCancelIcon: Icon(Icons.cancel, size: 15.0, color: Colors.black),
-            tagCancelIconPadding: EdgeInsets.only(left: 4.0, top: 2.0),
-            tagPadding:
-                EdgeInsets.only(top: 2.0, bottom: 4.0, left: 8.0, right: 4.0),
-            tagDecoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey.shade300,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20.0),
-              ),
-            ),
-            tagTextStyle:
-                TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-          ),
-          textFieldStyler: TextFieldStyler(
-            hintText: "Tags",
-            isDense: false,
-            textFieldFocusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 3.0),
-            ),
-            textFieldBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 3.0),
-            ),
-          ),
           onDelete: (tag) {
-            m.remove(tag);
+            setState(() {
+              m.remove(tag);
+            });
           },
           onTag: (tag) {
-            m.add(tag);
+            setState(() {
+              m.add(tag);
+            });
           },
           validator: (String tag) {
-            if (tag.length > 15) {
-              return "hey that is too much";
-            } else if (tag.isEmpty) {
-              return "enter something";
-            }
+            if (tag.length > 15) return "hey that is too much";
+
+            if (tag.isEmpty) return "enter something";
+
+            final splited = tag.split(":");
+
+            if (splited.length == 1)
+              return "agregue : para separar la etiqueta";
+            
+            if (splited.length > 2) return "solo se permite un :";
+
+            if (splited[0].isEmpty || splited[1].isEmpty) return "agregue texto antes y despues de :";
 
             return null;
           },

@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.0
+  collection:
+  reactive_forms:
 
 dev_dependencies:
   flutter_test:
