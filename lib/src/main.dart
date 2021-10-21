@@ -48,6 +48,8 @@ class TextFieldTags extends HookWidget {
             child: TextField(
               controller: _textEditingController,
               autocorrect: false,
+              decoration: InputDecoration(
+                  border: const UnderlineInputBorder(), filled: false),
               onSubmitted: (value) {
                 final val = value.trim().toLowerCase();
                 _validateClearAndNotify(val, _textEditingController);

@@ -9,6 +9,7 @@ class ReactiveTextFieldTags
   }) : super(
           formControl: formControl,
           builder: (field) {
+            //TODO: add a way to show errors
             return TextFieldTags(
               tags: field.value!,
               onTag: (tag) => field.didChange(Set.from(field.value!..add(tag))),
