@@ -57,6 +57,7 @@ class TextFieldTags extends HookWidget {
               onChanged: (value) {
                 //TODO: consider the case when a text containing separator is pasted into the field, for now its ignored
                 //TODO: add autocompleting feature
+                if(value.length==0) return;
                 if (textSeparators.any((sep) =>
                     value.substring(0, value.length - 1).contains(sep))) return;
                 final lastChar = value[value.length - 1];
