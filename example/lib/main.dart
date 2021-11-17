@@ -68,10 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
             if (splited.length == 1)
               return "agregue : para separar la etiqueta";
-            
+
             if (splited.length > 2) return "solo se permite un :";
 
-            if (splited[0].isEmpty || splited[1].isEmpty) return "agregue texto antes y despues de :";
+            if (splited[0].isEmpty || splited[1].isEmpty)
+              return "agregue texto antes y despues de :";
 
             return null;
           },
