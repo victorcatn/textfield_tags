@@ -7,24 +7,26 @@ class ReactiveTextFieldTags
   ReactiveTextFieldTags({
     InputDecoration decoration = const InputDecoration(),
     required FormControl<Set<String>> formControl,
+    required AutocompleteOptionsBuilder<String> optionsBuilder,
     Object? Function(String)? validator,
   }) : super(
           formControl: formControl,
           builder: (field) {
-            //TODO: add a way to show errors
             return InputDecorator(
               decoration: decoration.copyWith(
-                  errorText: field.errorText,
-                  filled: false,
-                  enabled: field.control.enabled,
-                  labelText: decoration.labelText,
-                  contentPadding: const EdgeInsets.all(8.0)),
+                errorText: field.errorText,
+                enabled: field.control.enabled,
+                border: OutlineInputBorder(),
+                filled: false,
+                contentPadding: const EdgeInsets.all(8.0),
+              ),
               child: TextFieldTags(
                 tags: field.value!,
                 onTag: (tag) =>
                     field.didChange(Set.from(field.value!..add(tag))),
                 onDelete: (tag) =>
                     field.didChange(Set.from(field.value!..remove(tag))),
+                optionsBuilder: optionsBuilder,
                 validator: validator,
               ),
             );
